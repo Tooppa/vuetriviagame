@@ -1,13 +1,20 @@
 <template>
   <div class="hello">
     <h1>Welcome to vue trivia app</h1>
+    <form action="" method="push">
+      <label for="uname">Username:</label>
+      <br />
+      <input type="text" id="uname" name="uname" />
+      <br />
+      <input type="submit" value="Submit" />
+    </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'StartScreen'
-}
+  name: "StartScreen",
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
