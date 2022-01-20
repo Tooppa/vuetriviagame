@@ -6,6 +6,13 @@
       <br />
       <input type="text" id="uname" name="uname" />
       <br />
+      <select name="difficulty">
+        <option value="any">Any Difficulty</option>
+        <option value="easy">Easy</option>
+        <option value="medium">Medium</option>
+        <option value="hard">Hard</option>
+      </select>
+      <br />
       <input type="submit" value="Submit" />
     </form>
   </div>
