@@ -1,17 +1,17 @@
 <template>
   <div class="questions">
     <h1>This is a questions page</h1>
-    <QuestionElement/>
+    <QuestionElement question="item" />
   </div>
 </template>
 
 <script>
-import QuestionElement from '@/components/QuestionElement.vue'
+import QuestionElement from "@/components/QuestionElement.vue";
 
 export default {
-  name: 'Question',
+  name: "Question",
   components: {
-    QuestionElement
-  }
-}
+    QuestionElement,
+  },
+};
 </script>
