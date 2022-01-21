@@ -3,11 +3,12 @@
     <h2>{{ data.question }}</h2>
     <div id="buttons">
       <button
-        v-for="answer in answers"
-        :key="answer"
-        @click="handleClick(answer)"
+        v-for="a in answers"
+        :key="a.answer"
+        :class= "{show: a.show}"
+        @click="handleClick(a)"
       >
-        {{ answer }}
+        {{ a.answer }}
       </button>
     </div>
   </div>
@@ -16,20 +17,25 @@
 <script>
 export default {
   name: "QuestionElement",
-  props: ["data"],
+  props: ['data','showanswer'],
   data() {
-    let allAnswers = this.data.incorrect_answers;
+    let allAnswers = this.data.incorrect_answers.map((answer) => {
+      return {
+        answer: answer,
+        show: false,
+      };
+    });
     // adds correct answer in the wrong answer array. in the future add this to the endpoint
-    allAnswers.splice(
-      Math.floor(Math.random() * allAnswers.length),
-      0,
-      this.data.correct_answer
-    );
+    allAnswers.splice(Math.floor(Math.random() * allAnswers.length), 0, {
+      answer: this.data.correct_answer,
+      show: this.showanswer ? true : false,
+    });
+    console.log(this.showanswer ? true : false);
     return {
       answers: allAnswers,
       handleClick: (clicked) => {
         console.log(
-          clicked == this.data.correct_answer
+          clicked.answer == this.data.correct_answer
             ? "You answered correctly"
             : "You answered incorrectly"
         );
@@ -46,8 +52,11 @@ export default {
   margin-left: 30vw;
   margin-right: 30vw;
 }
-button{
+button {
   margin: 10px;
   padding: 10px;
+}
+.show{
+  background-color: aquamarine;
 }
 </style>
