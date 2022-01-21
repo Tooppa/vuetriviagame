@@ -1,13 +1,13 @@
 <template>
   <div class="hello">
     <h2>{{ data.question }}</h2>
-    <form action="">
-      <div v-for="answer in answers" :key="answer.id">
-        <input type="radio" id="" name="" value="" />
-        <label for="">{{answer}}</label><br />
-      </div>
-      <input type="submit" value="Submit" />
-    </form>
+    <button
+      v-for="answer in answers"
+      :key="answer"
+      @click="handleClick(answer)"
+    >
+      {{ answer }}
+    </button>
   </div>
 </template>
 
@@ -15,13 +15,20 @@
 export default {
   name: "QuestionElement",
   props: ["data"],
-  data(){
+  data() {
     let allAnswers = this.data.incorrect_answers;
-    allAnswers.push(this.data.correct_answer);
-    return{
-        answers: allAnswers
-    }
-  }
+    allAnswers.splice(Math.floor(Math.random() * allAnswers.length), 0, this.data.correct_answer);
+    return {
+      answers: allAnswers,
+      handleClick: (clicked) => {
+        console.log(
+          clicked == this.data.correct_answer
+            ? "You answered correctly"
+            : "You answered incorrectly"
+        );
+      },
+    };
+  },
 };
 </script>
 
