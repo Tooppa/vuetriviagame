@@ -3,9 +3,8 @@
     <h2>{{ data.question }}</h2>
     <form action="">
       <div v-for="answer in data.incorrect_answers" :key="answer.id">
-        {{ answer }}
         <input type="radio" id="" name="" value="" />
-        <label for="">{{}}</label><br />
+        <label for="">{{answer}}</label><br />
       </div>
       <input type="submit" value="Submit" />
     </form>
