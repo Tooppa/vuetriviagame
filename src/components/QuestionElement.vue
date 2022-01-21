@@ -1,19 +1,14 @@
 <template>
   <div class="hello">
-    <h2>{{data.question}}</h2>
-    <!-- <h1 v-if="questions.value.length > 0" >{{questions.value[0].question}}</h1> -->
-    <p>{{ question }}</p>
-    <input type="radio" id="html" name="fav_language" value="HTML" />
-    <label for="html">HTML</label><br />
-    <input type="radio" id="css" name="fav_language" value="CSS" />
-    <label for="css">CSS</label><br />
-    <input
-      type="radio"
-      id="javascript"
-      name="fav_language"
-      value="JavaScript"
-    />
-    <label for="javascript">JavaScript</label>
+    <h2>{{ data.question }}</h2>
+    <form action="">
+      <div v-for="answer in data.incorrect_answers" :key="answer.id">
+        {{ answer }}
+        <input type="radio" id="" name="" value="" />
+        <label for="">{{}}</label><br />
+      </div>
+      <input type="submit" value="Submit" />
+    </form>
   </div>
 </template>
 
