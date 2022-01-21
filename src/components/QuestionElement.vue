@@ -17,6 +17,7 @@ export default {
   props: ["data"],
   data() {
     let allAnswers = this.data.incorrect_answers;
+    // adds correct answer in the wrong answer array. in the future add this to the endpoint
     allAnswers.splice(Math.floor(Math.random() * allAnswers.length), 0, this.data.correct_answer);
     return {
       answers: allAnswers,
