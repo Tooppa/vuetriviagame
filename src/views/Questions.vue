@@ -1,7 +1,7 @@
 <template>
   <div class="questions">
     <h1>This is a questions page</h1>
-    <QuestionElement v-for="data in questions" :key="data.id" :data="data" />
+    <QuestionElement v-for="data in questions" :key="data.question" :data="data" />
   </div>
 </template>
 
