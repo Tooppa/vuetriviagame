@@ -19,7 +19,7 @@ export const fetchCategories = async () => {
  *
  * NOTE: Use 'undefined' when declaring empty parameters
  *
- * @param {string} numberOfQuestions
+ * @param {number} numberOfQuestions
  * @param {string} category
  * @param {string} difficulty
  * @param {string} type
