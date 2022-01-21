@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h2>Question</h2>
+    <h2>{{data.question}}</h2>
     <!-- <h1 v-if="questions.value.length > 0" >{{questions.value[0].question}}</h1> -->
     <p>{{ question }}</p>
     <input type="radio" id="html" name="fav_language" value="HTML" />
@@ -18,20 +18,9 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
-
-import { fetchQuestions } from '@/endpoints/trivia/triviaApi';
-
-const questions = ref(fetchQuestions(1));
-
-onMounted(async () => {
-  // questions.value = ;
-  console.log(questions.value[0]);
-});
-
 export default {
   name: "QuestionElement",
-  props: ["question"],
+  props: ["data"],
 };
 </script>
 
