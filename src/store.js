@@ -12,6 +12,16 @@ const store = createStore({
         setQuestions: (state, payload) =>{
             state.questions = {...payload}
         }
+    },
+    actions: {
+        async fetchQuestions(){
+            //get the questions from th endpoint
+        }
+    },
+    getters: {
+        getQuestions: (state) => {
+            return state.questions
+        }
     }
 })
 
