@@ -2,7 +2,7 @@ const baseUrl = process.env.VUE_APP_USERS_BASE_URL;
 const apiKey = process.env.VUE_APP_USERS_API_KEY;
 
 /**
- * Gets all users 
+ * Gets all users
  * @returns Users as an Array
  */
 export const fetchAll = async () => {
@@ -17,7 +17,7 @@ export const fetchAll = async () => {
 
 /**
  * Finds usernames matching the given parameter.
- * @param {string} username 
+ * @param {string} username
  * @returns All matching usernames
  */
 export const find = async (username) => {
@@ -32,11 +32,18 @@ export const find = async (username) => {
 
 /**
  * Creates a new user.
- * @param {string} username 
+ * @param {string} username
  * @returns Newly created user
  */
 export const create = async (username) => {
   try {
+    const found = await find(username);
+    if (found.length > 0) {
+      return {
+        succeeded: false,
+      };
+    }
+
     const res = await fetch(baseUrl, {
       method: "POST",
       headers: {
@@ -49,7 +56,11 @@ export const create = async (username) => {
       }),
     });
     const json = await res.json();
-    return json;
+
+    return {
+      succeeded: true,
+      data: json,
+    };
   } catch (error) {
     console.error(error);
   }
@@ -58,7 +69,7 @@ export const create = async (username) => {
 /**
  * Updates the current users highscore
  * @param {number} userId
- * @param {number} newHighScore 
+ * @param {number} newHighScore
  * @returns Updated user
  */
 export const update = async (userId, newHighScore) => {
