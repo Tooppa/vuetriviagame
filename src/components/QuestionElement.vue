@@ -30,7 +30,6 @@ export default {
       answer: this.data.correct_answer,
       show: this.showanswer ? true : false,
     });
-    console.log(this.showanswer ? true : false);
     return {
       answers: allAnswers,
       handleClick: (clicked) => {

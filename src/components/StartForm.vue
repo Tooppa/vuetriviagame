@@ -19,8 +19,13 @@
 </template>
 
 <script>
+import { useStore } from "vuex";
 export default {
   name: "StartForm",
+  mounted() {
+    const store = useStore();
+    store.dispatch("fetch");
+  },
 };
 </script>
 
