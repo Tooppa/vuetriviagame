@@ -1,11 +1,11 @@
 <template>
-  <div class="hello">
+  <div class="question">
     <h2>{{ data.question }}</h2>
     <div id="buttons">
       <button
-        v-for="a in answers"
+        v-for="a in allAnswers"
         :key="a.answer"
-        :class= "{show: a.show}"
+        :class="{ show: a.show }"
         @click="handleClick(a)"
       >
         {{ a.answer }}
@@ -14,34 +14,36 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "QuestionElement",
-  props: ['data','showanswer'],
-  data() {
-    let allAnswers = this.data.incorrect_answers.map((answer) => {
-      return {
-        answer: answer,
-        show: false,
-      };
-    });
-    // adds correct answer in the wrong answer array. in the future add this to the endpoint
-    allAnswers.splice(Math.floor(Math.random() * allAnswers.length), 0, {
-      answer: this.data.correct_answer,
-      show: this.showanswer ? true : false,
-    });
-    console.log(this.showanswer ? true : false);
+<script setup>
+import { defineProps, computed } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
+const props = defineProps({
+  data: Object,
+  showanswer: Boolean,
+});
+let allAnswers = computed(() => {
+  let data = props.data.incorrect_answers.map((answer) => {
     return {
-      answers: allAnswers,
-      handleClick: (clicked) => {
-        console.log(
-          clicked.answer == this.data.correct_answer
-            ? "You answered correctly"
-            : "You answered incorrectly"
-        );
-      },
+      answer: answer,
+      show: false,
     };
-  },
+  });
+  // adds correct answer in the wrong answer array. in the future add this to the endpoint
+  data.splice(Math.floor(Math.random() * (data.length + 1)), 0, {
+    answer: props.data.correct_answer,
+    show: props.showanswer ? true : false,
+  });
+  return data;
+});
+const handleClick = (clicked) => {
+  if (clicked.answer == props.data.correct_answer) {
+    if (!store.getters.checkIfLastQuestion) {
+      store.dispatch("nextQuestion");
+    }else{
+      console.log('all questions answered');
+    }
+  }
 };
 </script>
 
@@ -56,7 +58,7 @@ button {
   margin: 10px;
   padding: 10px;
 }
-.show{
+.show {
   background-color: aquamarine;
 }
 </style>

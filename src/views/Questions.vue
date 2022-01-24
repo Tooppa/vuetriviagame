@@ -1,29 +1,15 @@
 <template>
   <div class="questions">
     <h1>This is a questions page</h1>
-    <QuestionElement v-for="data in questions" :key="data.question" :data="data" />
+    <QuestionElement :data="question" />
   </div>
 </template>
 
-<script>
+<script setup>
 import QuestionElement from "@/components/QuestionElement.vue";
-import { fetchQuestions } from "@/endpoints/trivia/triviaApi";
+import {useStore} from 'vuex'
+import {computed} from 'vue'
 
-
-export default {
-  name: "Question",
-  components: {
-    QuestionElement,
-  },
-  data() {
-    return {
-      questions: null,
-    };
-  },
-  mounted(){
-    fetchQuestions(1)
-      .then(data => this.questions = data)
-      .catch(err => console.log(err.message))
-  }
-};
+const store = useStore();
+const question = computed(() => store.getters.getCurrentQuestion);
 </script>

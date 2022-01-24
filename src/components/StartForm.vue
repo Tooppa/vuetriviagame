@@ -1,7 +1,12 @@
 <template>
   <div>
     <p class="m-0 t-l">Username</p>
-    <input class="name-input" type="text" v-model="username" placeholder="Enter username...." />
+    <input
+      class="name-input"
+      type="text"
+      v-model="username"
+      placeholder="Enter username...."
+    />
     <!-- Difficulty -->
     <div class="m-1-rem">
       <p class="m-0">Difficulty</p>
@@ -51,6 +56,7 @@ import { ref, onMounted } from "vue";
 import { create } from "../endpoints/users/usersApi";
 import { Difficulties } from "../endpoints/trivia/difficulty";
 import { fetchCategories } from "../endpoints/trivia/triviaApi";
+import { useStore } from "vuex";
 import router from "../router";
 
 const username = ref("");
@@ -60,6 +66,8 @@ const selectedCategory = ref("");
 
 let categories = ref([]);
 const isLoading = ref(false);
+
+const store = useStore();
 
 const onUsernameSubmit = async () => {
   if (
@@ -71,8 +79,11 @@ const onUsernameSubmit = async () => {
     isLoading.value = true;
     const res = await create(username.value);
     if (res.succeeded === false) {
-      alert(`User with name "${username.value}" already exists. Try entering different name`);
+      alert(
+        `User with name "${username.value}" already exists. Try entering different name`
+      );
     } else {
+      store.dispatch("fetch");
       router.push("/questions");
     }
     isLoading.value = false;
