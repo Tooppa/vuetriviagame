@@ -30,7 +30,7 @@ let allAnswers = computed(() => {
     };
   });
   // adds correct answer in the wrong answer array. in the future add this to the endpoint
-  data.splice(Math.floor(Math.random() * data.length), 0, {
+  data.splice(Math.floor(Math.random() * (data.length + 1)), 0, {
     answer: props.data.correct_answer,
     show: props.showanswer ? true : false,
   });
