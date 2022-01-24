@@ -1,48 +1,136 @@
 <template>
-  <div class="hello">
-    <h1>Welcome to vue trivia app</h1>
-    <form action="" method="push">
-      <label for="uname">Username:</label>
-      <br />
-      <input type="text" id="uname" name="uname" />
-      <br />
-      <select name="difficulty">
-        <option value="any">Any Difficulty</option>
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
+  <div>
+    <p class="m-0 t-l">Username</p>
+    <input class="name-input" type="text" v-model="username" placeholder="Enter username...." />
+    <!-- Difficulty -->
+    <div class="m-1-rem">
+      <p class="m-0">Difficulty</p>
+      <select v-model="selectedDifficulty">
+        <option
+          :value="diff"
+          v-for="(diff, index) in Difficulties"
+          :key="index"
+        >
+          {{ diff }}
+        </option>
       </select>
-      <br />
-      <input type="submit" value="Submit" />
-    </form>
+    </div>
+    <!-- Number of questions -->
+    <div class="m-1-rem">
+      <p class="m-0">Number of questions</p>
+      <input type="number" v-model="numberOfQuestions" />
+    </div>
+    <!-- Categories -->
+    <div class="m-1-rem">
+      <p class="m-0">Categories</p>
+      <select v-model="selectedCategory">
+        <option
+          :value="category"
+          v-for="category in categories"
+          :key="category.id"
+        >
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+    <!-- Submit -->
+    <div class="m-1-rem">
+      <button
+        class="btn"
+        @click="onUsernameSubmit"
+        v-bind:class="[isLoading ? 'btn-disabled' : '']"
+      >
+        Submit
+      </button>
+    </div>
   </div>
 </template>
 
-<script>
-import { useStore } from "vuex";
-export default {
-  name: "StartForm",
-  mounted() {
-    const store = useStore();
-    store.dispatch("fetch");
-  },
+<script setup>
+import { ref, onMounted } from "vue";
+import { create } from "../endpoints/users/usersApi";
+import { Difficulties } from "../endpoints/trivia/difficulty";
+import { fetchCategories } from "../endpoints/trivia/triviaApi";
+import router from "../router";
+
+const username = ref("");
+const numberOfQuestions = ref(10);
+const selectedDifficulty = ref(Difficulties[0]);
+const selectedCategory = ref("");
+
+let categories = ref([]);
+const isLoading = ref(false);
+
+const onUsernameSubmit = async () => {
+  if (
+    username.value.length > 0 &&
+    numberOfQuestions.value > 0 &&
+    selectedDifficulty.value !== "" &&
+    selectedCategory.value !== ""
+  ) {
+    isLoading.value = true;
+    const res = await create(username.value);
+    if (res.succeeded === false) {
+      alert(`User with name "${username.value}" already exists. Try entering different name`);
+    } else {
+      router.push("/questions");
+    }
+    isLoading.value = false;
+  } else {
+    alert("all fields must be filled before starting the game");
+  }
 };
+
+onMounted(async () => {
+  categories.value = await fetchCategories();
+});
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+.name-input {
+  padding: 14px;
+  width: 256px;
 }
-ul {
-  list-style-type: none;
+
+select {
+  padding: 6px;
+  width: 150px;
+}
+
+.container {
+  margin: 0;
+  padding: 0;
+  width: 75%;
+}
+
+.btn {
+  padding: 15px 35px;
+  margin: 5px;
+  font-size: 24px;
+}
+
+.btn-disabled {
+  background-color: red;
+}
+
+/* Utities */
+.m-1-rem {
+  margin: 1rem;
+}
+
+.m-0 {
+  margin: 0;
+}
+
+.p-0 {
   padding: 0;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+.t-l {
+  font-size: x-large;
 }
-a {
-  color: #42b983;
+
+.t-xl {
+  font-size: x-large;
 }
 </style>
