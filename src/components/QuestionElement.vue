@@ -37,9 +37,12 @@ let allAnswers = computed(() => {
   return data;
 });
 const handleClick = (clicked) => {
-  const condition = !store.getters.checkIfLastQuestion;
-  if (clicked.answer == props.data.correct_answer && condition) {
-    store.dispatch("nextQuestion");
+  if (clicked.answer == props.data.correct_answer) {
+    if (!store.getters.checkIfLastQuestion) {
+      store.dispatch("nextQuestion");
+    }else{
+      console.log('all questions answered');
+    }
   }
 };
 </script>
