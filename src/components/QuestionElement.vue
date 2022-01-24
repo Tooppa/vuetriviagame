@@ -38,6 +38,7 @@ let allAnswers = computed(() => {
 });
 const handleClick = (clicked) => {
   if (clicked.answer == props.data.correct_answer) {
+    store.commit('setScore', 1);
     if (!store.getters.checkIfLastQuestion) {
       store.dispatch("nextQuestion");
     }else{
