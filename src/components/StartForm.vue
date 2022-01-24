@@ -83,6 +83,11 @@ const onUsernameSubmit = async () => {
         `User with name "${username.value}" already exists. Try entering different name`
       );
     } else {
+      /*store.commit("setSettings", {
+        amount: numberOfQuestions.value,
+        category: selectedCategory.value,
+        difficulty: selectedDifficulty.value,
+      });*/
       store.dispatch("fetch");
       router.push("/questions");
     }
