@@ -1,17 +1,22 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <h1>Trivia Game</h1>
+    <img alt="Vue logo" src="../assets/logo.svg">
     <StartForm/>
   </div>
 </template>
 
-<script>
+<script setup>
 import StartForm from '@/components/StartForm.vue'
-
-export default {
-  name: 'Home',
-  components: {
-    StartForm
-  }
-}
 </script>
+
+<style scoped>
+
+.home {
+  margin-top: 2rem;
+}
+
+img {
+  width: 512px;
+}
+</style>
