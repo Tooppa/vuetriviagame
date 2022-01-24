@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div class="question">
     <h2>{{ data.question }}</h2>
     <div id="buttons">
       <button
@@ -15,28 +15,32 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, computed } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
 const props = defineProps({
   data: Object,
-  showanswer: Boolean
-})
-let allAnswers = props.data.incorrect_answers.map((answer) => {
-  return {
-    answer: answer,
-    show: false,
-  };
+  showanswer: Boolean,
 });
-// adds correct answer in the wrong answer array. in the future add this to the endpoint
-allAnswers.splice(Math.floor(Math.random() * allAnswers.length), 0, {
-  answer: props.data.correct_answer,
-  show: props.showanswer ? true : false,
+let allAnswers = computed(() => {
+  let data = props.data.incorrect_answers.map((answer) => {
+    return {
+      answer: answer,
+      show: false,
+    };
+  });
+  // adds correct answer in the wrong answer array. in the future add this to the endpoint
+  data.splice(Math.floor(Math.random() * data.length), 0, {
+    answer: props.data.correct_answer,
+    show: props.showanswer ? true : false,
+  });
+  return data;
 });
 const handleClick = (clicked) => {
-  console.log(
-    clicked.answer == props.data.correct_answer
-      ? "You answered correctly"
-      : "You answered incorrectly"
-  );
+  const condition = !store.getters.checkIfLastQuestion;
+  if (clicked.answer == props.data.correct_answer && condition) {
+    store.dispatch("nextQuestion");
+  }
 };
 </script>
 

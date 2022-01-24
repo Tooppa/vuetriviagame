@@ -42,9 +42,10 @@ const store = createStore({
             commit('setQuestions', questions);
             commit('setCurrentQuestion', questions[0]);
         },
-        async nextQuestion({commit}){
-            const nextIndex = store.questionIndex++;
-            commit('setCurrentQuestion', store.questions[nextIndex]);
+        async nextQuestion({state, commit}){
+            state.questionIndex++;
+            const nextIndex = state.questionIndex;
+            commit('setCurrentQuestion', state.questions[nextIndex]);
         }
     },
     getters: {
@@ -53,6 +54,9 @@ const store = createStore({
         },
         getCurrentQuestion: (state) => {
             return state.currentQuestion
+        },
+        checkIfLastQuestion: (state) =>{
+            return state.questionIndex === state.questionType.amount -1
         }
     }
 })
