@@ -22,6 +22,9 @@ const store = createStore({
         },
         setSettings: (state, payload) => {
             state.questionType = { ...payload }
+        },
+        setUser: (state, payload) => {
+            state.user = { ...payload }
         }
     },
     actions: {
