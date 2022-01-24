@@ -8,7 +8,7 @@ export const fetchCategories = async () => {
   try {
     const res = await fetch(process.env.VUE_APP_TRIVIA_CATEGORY_BASE_URL);
       const json = await res.json();
-      return await json;
+      return await ['Any Category', ...json.trivia_categories];
   } catch (error) {
     console.error(error);
   }
