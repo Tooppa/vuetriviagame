@@ -5,7 +5,7 @@
       <button
         v-for="a in answers"
         :key="a.answer"
-        :class= "{show: a.show}"
+        :class="{ show: a.show }"
         @click="handleClick(a)"
       >
         {{ a.answer }}
@@ -17,8 +17,9 @@
 <script>
 export default {
   name: "QuestionElement",
-  props: ['data','showanswer'],
+  props: ["data", "showanswer"],
   data() {
+    console.log(this.data);
     let allAnswers = this.data.incorrect_answers.map((answer) => {
       return {
         answer: answer,
@@ -55,7 +56,7 @@ button {
   margin: 10px;
   padding: 10px;
 }
-.show{
+.show {
   background-color: aquamarine;
 }
 </style>

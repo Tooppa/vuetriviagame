@@ -11,6 +11,7 @@ const store = createStore({
         questions: [],
         answers: [],
         currentQuestion: {},
+        questionIndex: 0,
         user: {
             name: '',
             highscore: ''
@@ -19,6 +20,9 @@ const store = createStore({
     mutations: {
         setQuestions: (state, payload) => {
             state.questions = { ...payload }
+        },
+        setCurrentQuestion: (state, payload) => {
+            state.currentQuestion = { ...payload }
         },
         setSettings: (state, payload) => {
             state.questionType = { ...payload }
@@ -36,11 +40,19 @@ const store = createStore({
                 state.questionType.difficulty
             );
             commit('setQuestions', questions);
+            commit('setCurrentQuestion', questions[0]);
+        },
+        async nextQuestion({commit}){
+            const nextIndex = store.questionIndex++;
+            commit('setCurrentQuestion', store.questions[nextIndex]);
         }
     },
     getters: {
         getQuestions: (state) => {
             return state.questions
+        },
+        getCurrentQuestion: (state) => {
+            return state.currentQuestion
         }
     }
 })
