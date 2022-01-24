@@ -78,12 +78,17 @@ const onUsernameSubmit = async () => {
   ) {
     isLoading.value = true;
     const res = await create(username.value);
+    console.log('res', res);
     if (res.succeeded === false) {
       alert(
         `User with name "${username.value}" already exists. Try entering different name`
       );
     } else {
       store.dispatch("fetch");
+      store.commit("setUser", {
+        name: res.username,
+        highscore: res.highScore,
+      });
       router.push("/questions");
     }
     isLoading.value = false;

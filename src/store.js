@@ -33,7 +33,7 @@ const store = createStore({
     },
     actions: {
         async fetch({ state, commit }) {
-            //get the questions from th endpoint
+            //get the questions from the endpoint
             const questions = await fetchQuestions(
                 state.questionType.amount,
                 state.questionType.category,
@@ -57,6 +57,9 @@ const store = createStore({
         },
         checkIfLastQuestion: (state) =>{
             return state.questionIndex === state.questionType.amount -1
+        },
+        getUser: (state) => {
+            return state.user;
         }
     }
 })
