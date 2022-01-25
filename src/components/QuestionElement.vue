@@ -24,10 +24,15 @@ const store = useStore();
 const props = defineProps({
   data: Object,
   showanswer: Boolean,
+  index: Number
 });
 const storedAnswers = store.getters.getAnswers;
 const checkIfInStoredAnswers = (answer) => {
-  return storedAnswers && storedAnswers.includes(answer);
+  return (
+    storedAnswers &&
+    storedAnswers.includes(answer) &&
+    storedAnswers.indexOf(answer) == props.index
+  );
 };
 let allAnswers = computed(() => {
   let data = props.data.incorrect_answers.map((answer) => {

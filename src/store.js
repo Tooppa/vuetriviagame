@@ -31,8 +31,10 @@ const store = createStore({
             state.user = { ...payload }
         },
         setAnswer: (state, payload) => {
-            console.log(payload);
             state.answers.push(payload);
+        },
+        resetAnswer: (state) => {
+            state.answers = [];
         },
         setScore: (state, payload) => {
             state.user.score += payload;
@@ -47,6 +49,7 @@ const store = createStore({
                 state.questionType.difficulty
             );
             commit('setQuestions', questions);
+            commit('resetAnswer');
             commit('setCurrentQuestion', questions[0]);
         },
         async nextQuestion({ state, commit }) {
