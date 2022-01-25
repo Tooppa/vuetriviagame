@@ -4,11 +4,13 @@
 
 <script setup>
 import { useStore } from "vuex";
-import { computed } from "vue";
+import { computed, defineEmits } from "vue";
 import { find } from "../endpoints/users/usersApi";
 
 const store = useStore();
 const user = computed(() => store.getters.getUser);
+
+const emit = defineEmits(['onSave']);
 
 const saveScore = async () => {
   const foundUser = await find(user.value.name);
@@ -18,6 +20,7 @@ const saveScore = async () => {
     );
     if (canOverride) {
       store.dispatch("updateUser");
+      emit('onSave');
     }
   }
 };
