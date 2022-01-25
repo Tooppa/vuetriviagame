@@ -37,18 +37,24 @@ export const find = async (username) => {
  */
 export const create = async (username) => {
   try {
-    const res = await fetch(baseUrl, {
-      method: "POST",
-      headers: {
-        "X-API-Key": apiKey,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: username,
-        highScore: 0,
-      }),
-    });
-    return res.json();
+    const foundUser = await find(username);
+    if (foundUser.length > 0) {
+      console.log('foundUsers', foundUser);
+      return foundUser[0];
+    } else {
+      const res = await fetch(baseUrl, {
+        method: "POST",
+        headers: {
+          "X-API-Key": apiKey,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: username,
+          highScore: 0,
+        }),
+      });
+      return res.json();
+    }
   } catch (error) {
     console.error(error);
   }

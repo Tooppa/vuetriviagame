@@ -78,25 +78,20 @@ const onUsernameSubmit = async () => {
   ) {
     isLoading.value = true;
     const res = await create(username.value);
-    if (res.succeeded === false) {
-      alert(
-        `User with name "${username.value}" already exists. Try entering different name`
-      );
-    } else {
-      const param = {
-        amount: numberOfQuestions.value,
-        category: selectedCategory.value.id,
-        difficulty: selectedDifficulty.value,
-      };
-      store.commit("setSettings", param);
-      store.dispatch("fetch");
-      store.commit("setUser", {
-        name: res.username,
-        highscore: res.highScore,
-        score: 0
-      });
-      router.push("/questions");
-    }
+    const param = {
+      amount: numberOfQuestions.value,
+      category: selectedCategory.value.id,
+      difficulty: selectedDifficulty.value,
+    };
+    store.commit("setSettings", param);
+    store.dispatch("fetch");
+
+    store.commit("setUser", {
+      ...res,
+      score: 0
+    });
+    router.push("/questions");
+
     isLoading.value = false;
   } else {
     alert("all fields must be filled before starting the game");

@@ -1,17 +1,32 @@
 <template>
-    <button @click="saveScore" v-if="user.score > user.highscore">Press me</button>
+  <button @click="saveScore">Save score</button>
 </template>
 
 <script setup>
-import { useStore } from 'vuex';
-import { computed } from 'vue';
+import { useStore } from "vuex";
+import { computed } from "vue";
+import { find } from "../endpoints/users/usersApi";
 
 const store = useStore();
 const user = computed(() => store.getters.getUser);
 
-console.log('user highscore',user);
-
+const saveScore = async () => {
+  const foundUser = await find(user.value.name);
+  if (foundUser) {
+    let canOverride = confirm(
+      `You are about to override ${user.value.name}'s highscore. Are you sure?`
+    );
+    if (canOverride) {
+      store.dispatch("updateUser");
+    }
+  }
+};
 </script>
 
-<style>
+<style scoped>
+button {
+  margin: 16px;
+  padding: 16px;
+  font-size: 16px;
+}
 </style>
