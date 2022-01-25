@@ -32,7 +32,10 @@ const store = createStore({
         },
         setAnswer: (state, payload) => {
             state.answers.push({ ...payload });
-        }
+        },
+        setScore: (state, payload) => {
+            state.user.score += payload;
+        },
     },
     actions: {
         async fetch({ state, commit }) {
@@ -45,7 +48,7 @@ const store = createStore({
             commit('setQuestions', questions);
             commit('setCurrentQuestion', questions[0]);
         },
-        async nextQuestion({state, commit}){
+        async nextQuestion({ state, commit }) {
             state.questionIndex++;
             const nextIndex = state.questionIndex;
             commit('setCurrentQuestion', state.questions[nextIndex]);
@@ -58,8 +61,8 @@ const store = createStore({
         getCurrentQuestion: (state) => {
             return state.currentQuestion
         },
-        checkIfLastQuestion: (state) =>{
-            return state.questionIndex === state.questionType.amount -1
+        checkIfLastQuestion: (state) => {
+            return state.questionIndex === state.questionType.amount - 1
         }
     }
 })
