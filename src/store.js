@@ -16,20 +16,21 @@ const store = createStore({
       name: "",
       highscore: "",
       score: "",
+    },
     mutations: {
-        setQuestions: (state, payload) => {
-            state.questions = { ...payload }
-        },
-        setCurrentQuestion: (state, payload) => {
-            state.currentQuestion = { ...payload }
-        },
-        setSettings: (state, payload) => {
-            state.questionType = { ...payload }
-            console.log(state.questionType);
-        },
-        setUser: (state, payload) => {
-            state.user = { ...payload }
-        }
+      setQuestions: (state, payload) => {
+        state.questions = { ...payload };
+      },
+      setCurrentQuestion: (state, payload) => {
+        state.currentQuestion = { ...payload };
+      },
+      setSettings: (state, payload) => {
+        state.questionType = { ...payload };
+        console.log(state.questionType);
+      },
+      setUser: (state, payload) => {
+        state.user = { ...payload };
+      },
     },
   },
   mutations: {
