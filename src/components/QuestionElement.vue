@@ -41,6 +41,7 @@ let allAnswers = computed(() => {
 });
 const handleClick = (clicked) => {
   if (clicked.answer == props.data.correct_answer) {
+<<<<<<< HEAD
     store.commit("setAnswer", clicked.answer);
   }
   if (!store.getters.checkIfLastQuestion) {
@@ -48,6 +49,14 @@ const handleClick = (clicked) => {
   } else {
     //all questions are answered
     router.push("/results");
+=======
+    store.commit('setScore', 1);
+    if (!store.getters.checkIfLastQuestion) {
+      store.dispatch("nextQuestion");
+    }else{
+      console.log('all questions answered');
+    }
+>>>>>>> main
   }
 };
 </script>

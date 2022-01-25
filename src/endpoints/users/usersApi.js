@@ -37,13 +37,6 @@ export const find = async (username) => {
  */
 export const create = async (username) => {
   try {
-    const found = await find(username);
-    if (found.length > 0) {
-      return {
-        succeeded: false,
-      };
-    }
-
     const res = await fetch(baseUrl, {
       method: "POST",
       headers: {
@@ -55,12 +48,7 @@ export const create = async (username) => {
         highScore: 0,
       }),
     });
-    const json = await res.json();
-
-    return {
-      succeeded: true,
-      data: json,
-    };
+    return res.json();
   } catch (error) {
     console.error(error);
   }
