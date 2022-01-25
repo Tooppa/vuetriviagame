@@ -1,5 +1,5 @@
 <template>
-  <div class="form">
+  <div class="form" :class="[user.name === '' ? '' : 'hidden']">
     <div class="element">
       <label>Username </label>
       <input
@@ -8,6 +8,9 @@
         v-model="username"
         placeholder="Enter username...."
       />
+    </div>
+    <div :class="[user.username !== '' ? '' : 'hidden']">
+      <h1>{{user.username}}</h1>
     </div>
     <!-- Difficulty -->
     <div class="element">
@@ -48,7 +51,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { create } from "../endpoints/users/usersApi";
 import { Difficulties } from "../endpoints/trivia/difficulty";
 import { fetchCategories } from "../endpoints/trivia/triviaApi";
@@ -65,6 +68,8 @@ const isLoading = ref(false);
 
 const store = useStore();
 
+const user = computed(() => store.getters.getUser);
+
 const onUsernameSubmit = async () => {
   if (
     username.value.length > 0 &&
@@ -74,25 +79,20 @@ const onUsernameSubmit = async () => {
   ) {
     isLoading.value = true;
     const res = await create(username.value);
-    if (res.succeeded === false) {
-      alert(
-        `User with name "${username.value}" already exists. Try entering different name`
-      );
-    } else {
-      const param = {
-        amount: numberOfQuestions.value,
-        category: selectedCategory.value.id,
-        difficulty: selectedDifficulty.value,
-      };
-      store.commit("setSettings", param);
-      store.dispatch("fetch");
-      store.commit("setUser", {
-        name: res.username,
-        highscore: res.highScore,
-        score: 0,
-      });
-      router.push("/questions");
-    }
+    const param = {
+      amount: numberOfQuestions.value,
+      category: selectedCategory.value.id,
+      difficulty: selectedDifficulty.value,
+    };
+    store.commit("setSettings", param);
+    store.dispatch("fetch");
+
+    store.commit("setUser", {
+      ...res,
+      score: 0,
+    });
+    router.push("/questions");
+
     isLoading.value = false;
   } else {
     alert("all fields must be filled before starting the game");
@@ -151,5 +151,8 @@ button {
 }
 button:disabled {
   background-color: red;
+}
+.hidden {
+  display: none;
 }
 </style>

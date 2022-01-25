@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import { fetchQuestions } from "@/endpoints/trivia/triviaApi";
+import { update } from '@/endpoints/users/usersApi';
 
 const store = createStore({
     state: {
@@ -13,9 +14,11 @@ const store = createStore({
         currentQuestion: {},
         questionIndex: 0,
         user: {
-            name: '',
-            highscore: ''
-        }
+          id: "",
+          name: "",
+          highscore: "",
+          score: ""
+        },
     },
     mutations: {
         setQuestions: (state, payload) => {
@@ -56,7 +59,11 @@ const store = createStore({
             state.questionIndex++;
             const nextIndex = state.questionIndex;
             commit('setCurrentQuestion', state.questions[nextIndex]);
-        }
+      },
+        async updateUser({ state, commit }) {
+      const updatedUser = await update(state.user.id, state.user.score);
+      commit('setUser', { ...updatedUser, score: state.user.score});
+    }
     },
     getters: {
         getQuestions: (state) => {
