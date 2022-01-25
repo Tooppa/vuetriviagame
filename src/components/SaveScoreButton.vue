@@ -9,14 +9,15 @@ import { find } from "../endpoints/users/usersApi";
 
 const store = useStore();
 const user = computed(() => store.getters.getUser);
+console.log('user', user.value);
 
 const emit = defineEmits(['onSave']);
 
 const saveScore = async () => {
-  const foundUser = await find(user.value.name);
+  const foundUser = await find(user.value.username);
   if (foundUser) {
     let canOverride = confirm(
-      `You are about to override ${user.value.name}'s highscore. Are you sure?`
+      `You are about to override ${user.value.username}'s highscore. Are you sure?`
     );
     if (canOverride) {
       store.dispatch("updateUser");
