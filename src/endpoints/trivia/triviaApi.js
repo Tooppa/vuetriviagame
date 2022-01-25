@@ -5,13 +5,9 @@ export const defaultCategory = { id: 100, name: 'All Categories' };
  * @returns Array of categories
  */
 export const fetchCategories = async () => {
-  try {
-    const res = await fetch(process.env.VUE_APP_TRIVIA_CATEGORY_BASE_URL);
-    const json = await res.json();
-    return await [defaultCategory, ...json.trivia_categories];
-  } catch (error) {
-    console.error(error);
-  }
+  const res = await fetch(process.env.VUE_APP_TRIVIA_CATEGORY_BASE_URL);
+  const json = await res.json();
+  return [defaultCategory, ...json.trivia_categories];
 };
 
 /**
