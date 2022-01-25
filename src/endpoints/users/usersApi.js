@@ -39,7 +39,6 @@ export const create = async (username) => {
   try {
     const foundUser = await find(username);
     if (foundUser.length > 0) {
-      console.log('foundUsers', foundUser);
       return foundUser[0];
     } else {
       const res = await fetch(baseUrl, {
