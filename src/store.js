@@ -26,10 +26,12 @@ const store = createStore({
         },
         setSettings: (state, payload) => {
             state.questionType = { ...payload }
-            console.log(state.questionType);
         },
         setUser: (state, payload) => {
             state.user = { ...payload }
+        },
+        setAnswer: (state, payload) => {
+            state.answers.push({ ...payload });
         }
     },
     actions: {

@@ -6,6 +6,7 @@
         v-for="a in allAnswers"
         :key="a.answer"
         :class="{ show: a.show }"
+        :disabled="showanswer"
         @click="handleClick(a)"
       >
         {{ a.answer }}
@@ -17,6 +18,8 @@
 <script setup>
 import { defineProps, computed } from "vue";
 import { useStore } from "vuex";
+import router from "../router";
+
 const store = useStore();
 const props = defineProps({
   data: Object,
@@ -38,11 +41,13 @@ let allAnswers = computed(() => {
 });
 const handleClick = (clicked) => {
   if (clicked.answer == props.data.correct_answer) {
-    if (!store.getters.checkIfLastQuestion) {
-      store.dispatch("nextQuestion");
-    }else{
-      console.log('all questions answered');
-    }
+    store.commit("setAnswer", clicked.answer);
+  }
+  if (!store.getters.checkIfLastQuestion) {
+    store.dispatch("nextQuestion");
+  } else {
+    //all questions are answered
+    router.push("/results");
   }
 };
 </script>
