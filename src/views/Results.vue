@@ -2,7 +2,7 @@
   <SaveScoreButton />
   <div class="results">
     <h1>This is the results page</h1>
-    <QuestionElement v-for="data in questions" :key="data.question" :data="data" :showanswer="true"/>
+    <QuestionElement v-for="(data, index) in questions" :key="data.question" :data="data" :showanswer="true" :index="index"/>
   </div>
 </template>
 
