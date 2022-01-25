@@ -1,5 +1,5 @@
 const baseUrl = process.env.VUE_APP_TRIVIA_BASE_URL;
-
+export const defaultCategory = { id: 100, name: 'All Categories' };
 /**
  * Fetches all of the question categories
  * @returns Array of categories
@@ -7,8 +7,8 @@ const baseUrl = process.env.VUE_APP_TRIVIA_BASE_URL;
 export const fetchCategories = async () => {
   try {
     const res = await fetch(process.env.VUE_APP_TRIVIA_CATEGORY_BASE_URL);
-      const json = await res.json();
-      return await ['Any Category', ...json.trivia_categories];
+    const json = await res.json();
+    return await [defaultCategory, ...json.trivia_categories];
   } catch (error) {
     console.error(error);
   }
@@ -36,7 +36,7 @@ export const fetchQuestions = async (
       throw new Error("numberOfQuestions parameter has to have value");
     }
 
-    const cat = category !== undefined ? `&category=${category}` : "";
+    const cat = category !== undefined && category != 100 ? `&category=${category}` : "";
     const diff = difficulty !== undefined && difficulty != 'any' ? `&difficulty=${difficulty}` : "";
     const t = type !== undefined ? `&type=${type}` : "";
     const url = `${baseUrl}?amount=${numberOfQuestions}${cat}${diff}${t}`;
