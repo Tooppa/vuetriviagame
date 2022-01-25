@@ -90,6 +90,11 @@ const onUsernameSubmit = async () => {
       };
       store.commit("setSettings", param);
       store.dispatch("fetch");
+      store.commit("setUser", {
+        name: res.username,
+        highscore: res.highScore,
+        score: 0
+      });
       router.push("/questions");
     }
     isLoading.value = false;
