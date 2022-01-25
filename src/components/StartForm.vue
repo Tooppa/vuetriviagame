@@ -1,12 +1,18 @@
 <template>
   <div>
-    <p class="m-0 t-l">Username</p>
-    <input
-      class="name-input"
-      type="text"
-      v-model="username"
-      placeholder="Enter username...."
-    />
+    <!-- Username -->
+    <div :class="[user.name === '' ? '' : 'hidden']">
+      <p class="m-0 t-l">Username</p>
+      <input
+        class="name-input"
+        type="text"
+        v-model="username"
+        placeholder="Enter username...."
+      />
+    </div>
+    <div :class="[user.username !== '' ? '' : 'hidden']">
+      <h1>{{user.username}}</h1>
+    </div>
     <!-- Difficulty -->
     <div class="m-1-rem">
       <p class="m-0">Difficulty</p>
@@ -52,7 +58,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { create } from "../endpoints/users/usersApi";
 import { Difficulties } from "../endpoints/trivia/difficulty";
 import { fetchCategories } from "../endpoints/trivia/triviaApi";
@@ -68,6 +74,8 @@ let categories = ref([]);
 const isLoading = ref(false);
 
 const store = useStore();
+
+const user = computed(() => store.getters.getUser);
 
 const onUsernameSubmit = async () => {
   if (
@@ -88,7 +96,7 @@ const onUsernameSubmit = async () => {
 
     store.commit("setUser", {
       ...res,
-      score: 0
+      score: 0,
     });
     router.push("/questions");
 
@@ -131,6 +139,10 @@ select {
 }
 
 /* Utities */
+.hidden {
+  display: none;
+}
+
 .m-1-rem {
   margin: 1rem;
 }

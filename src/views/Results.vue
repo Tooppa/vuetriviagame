@@ -1,6 +1,6 @@
 <template>
   <SaveScoreButton @onSave="onSave"/>
-  <button class="back-button">Back to Start</button>
+  <button class="back-button" @click="onSave">Back to Start</button>
   <h1>You scored: {{ user.score }} point{{ user.score > 1 ? "s" : "" }}</h1>
   <h3>See how you did below</h3>
 
