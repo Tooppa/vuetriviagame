@@ -37,7 +37,7 @@ export const fetchQuestions = async (
     }
 
     const cat = category !== undefined ? `&category=${category}` : "";
-    const diff = difficulty !== undefined ? `&difficulty=${difficulty}` : "";
+    const diff = difficulty !== undefined && difficulty != 'any' ? `&difficulty=${difficulty}` : "";
     const t = type !== undefined ? `&type=${type}` : "";
     const url = `${baseUrl}?amount=${numberOfQuestions}${cat}${diff}${t}`;
 
