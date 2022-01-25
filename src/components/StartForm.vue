@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <!-- Username -->
-    <div :class="[user.name === '' ? '' : 'hidden']">
-      <p class="m-0 t-l">Username</p>
+  <div class="form" :class="[user.name === '' ? '' : 'hidden']">
+    <div class="element">
+      <label>Username </label>
       <input
         class="name-input"
         type="text"
@@ -14,8 +13,8 @@
       <h1>{{user.username}}</h1>
     </div>
     <!-- Difficulty -->
-    <div class="m-1-rem">
-      <p class="m-0">Difficulty</p>
+    <div class="element">
+      <label>Difficulty </label>
       <select v-model="selectedDifficulty">
         <option
           :value="diff"
@@ -27,13 +26,13 @@
       </select>
     </div>
     <!-- Number of questions -->
-    <div class="m-1-rem">
-      <p class="m-0">Number of questions</p>
+    <div class="element">
+      <label>Number of questions </label>
       <input type="number" v-model="numberOfQuestions" />
     </div>
     <!-- Categories -->
-    <div class="m-1-rem">
-      <p class="m-0">Categories</p>
+    <div class="element">
+      <label>Categories </label>
       <select v-model="selectedCategory">
         <option
           :value="category"
@@ -45,14 +44,8 @@
       </select>
     </div>
     <!-- Submit -->
-    <div class="m-1-rem">
-      <button
-        class="btn"
-        @click="onUsernameSubmit"
-        v-bind:class="[isLoading ? 'btn-disabled' : '']"
-      >
-        Submit
-      </button>
+    <div class="element">
+      <button @click="onUsernameSubmit" :disabled="isLoading">Submit</button>
     </div>
   </div>
 </template>
@@ -128,38 +121,43 @@ select {
   width: 75%;
 }
 
-.btn {
+.form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.element {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  flex-grow: 1;
+  padding: 10px;
+}
+
+.element > *{
+  flex-grow: 1;
+  margin: auto;
+}
+
+label{
+  text-align: left;
+}
+
+button {
   padding: 15px 35px;
   margin: 5px;
   font-size: 24px;
 }
-
-.btn-disabled {
+button:disabled {
   background-color: red;
 }
-
-/* Utities */
 .hidden {
   display: none;
 }
-
-.m-1-rem {
-  margin: 1rem;
-}
-
-.m-0 {
-  margin: 0;
-}
-
-.p-0 {
-  padding: 0;
-}
-
-.t-l {
-  font-size: x-large;
-}
-
-.t-xl {
-  font-size: x-large;
+@media screen and (max-width: 910px){
+  .home{
+    max-width: 600px;
+  }
 }
 </style>
