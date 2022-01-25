@@ -2,9 +2,10 @@
   <SaveScoreButton />
   <div class="results">
     <h1>This is the results page</h1>
-    <QuestionElement v-for="(data, index) in questions" :key="data.question" :data="data" :showanswer="true" :index="index"/>
+    <QuestionElement v-for="(data, index) in questions" :key="data.question" :data="data" :showanswer="true" :index="Number(index)"/>
   </div>
 </template>
+
 
 <script setup>
 import QuestionElement from "@/components/QuestionElement.vue";

@@ -1,6 +1,6 @@
 <template>
   <div class="question">
-    <h2>{{ data.question }}</h2>
+    <h2>{{ formatHtml(data.question) }}</h2>
     <div id="buttons">
       <button
         v-for="a in allAnswers"
@@ -9,7 +9,7 @@
         :disabled="showanswer"
         @click="handleClick(a)"
       >
-        {{ a.answer }}
+        {{ formatHtml(a.answer) }}
       </button>
     </div>
   </div>
@@ -20,11 +20,18 @@ import { defineProps, computed } from "vue";
 import { useStore } from "vuex";
 import router from "../router";
 
+//formatter
+const formatHtml = (text) => {
+  let parser = new DOMParser();
+  let dom = parser.parseFromString("<!doctype html><body>" + text, "text/html");
+  return dom.body.textContent;
+};
+
 const store = useStore();
 const props = defineProps({
   data: Object,
   showanswer: Boolean,
-  index: Number
+  index: Number,
 });
 const storedAnswers = store.getters.getAnswers;
 const checkIfInStoredAnswers = (answer) => {
@@ -60,6 +67,7 @@ const handleClick = (clicked) => {
   } else {
     //all questions are answered
     router.push("/results");
+    return;
   }
 };
 </script>
