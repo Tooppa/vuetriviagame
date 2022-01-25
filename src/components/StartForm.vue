@@ -155,4 +155,9 @@ button:disabled {
 .hidden {
   display: none;
 }
+@media screen and (max-width: 910px){
+  .home{
+    max-width: 600px;
+  }
+}
 </style>

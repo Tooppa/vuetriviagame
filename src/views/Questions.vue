@@ -1,7 +1,7 @@
 <template>
   <div class="questions">
     <h1>Questions</h1>
-    <QuestionElement v-if="question.value" :data="question" />
+    <QuestionElement v-if="question" :data="question" />
   </div>
 </template>
 
