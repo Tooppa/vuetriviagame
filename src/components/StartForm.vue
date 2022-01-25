@@ -61,14 +61,14 @@
 import { ref, onMounted, computed } from "vue";
 import { create } from "../endpoints/users/usersApi";
 import { Difficulties } from "../endpoints/trivia/difficulty";
-import { fetchCategories } from "../endpoints/trivia/triviaApi";
+import { fetchCategories, defaultCategory } from "../endpoints/trivia/triviaApi";
 import { useStore } from "vuex";
 import router from "../router";
 
 const username = ref("");
 const numberOfQuestions = ref(10);
 const selectedDifficulty = ref(Difficulties[0]);
-const selectedCategory = ref("");
+const selectedCategory = ref(defaultCategory);
 
 let categories = ref([]);
 const isLoading = ref(false);
