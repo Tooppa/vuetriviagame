@@ -40,8 +40,11 @@ const store = createStore({
             state.answers = [];
         },
         setScore: (state, payload) => {
-            state.user.score += payload;
+            state.user.score = payload;
         },
+        increaseScore: (state, payload) => {
+            state.user.score += payload;
+        }
     },
     actions: {
         async fetch({ state, commit }) {
