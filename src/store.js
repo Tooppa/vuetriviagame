@@ -31,7 +31,8 @@ const store = createStore({
             state.user = { ...payload }
         },
         setAnswer: (state, payload) => {
-            state.answers.push({ ...payload });
+            console.log(payload);
+            state.answers.push(payload);
         },
         setScore: (state, payload) => {
             state.user.score += payload;
@@ -58,12 +59,18 @@ const store = createStore({
         getQuestions: (state) => {
             return state.questions
         },
+        getAnswers: (state) => {
+            return state.answers
+        },
         getCurrentQuestion: (state) => {
             return state.currentQuestion
         },
         checkIfLastQuestion: (state) => {
             return state.questionIndex === state.questionType.amount - 1
-        }
+        },
+        getUser: (state) => {
+            return state.user;
+        },
     }
 })
 
