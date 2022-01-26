@@ -9,9 +9,6 @@
         placeholder="Enter username...."
       />
     </div>
-    <div :class="[user.username !== '' ? '' : 'hidden']">
-      <h1>{{user.username}}</h1>
-    </div>
     <!-- Difficulty -->
     <div class="element">
       <label>Difficulty </label>
