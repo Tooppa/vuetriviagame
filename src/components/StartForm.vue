@@ -1,6 +1,6 @@
 <template>
-  <div class="form" :class="[user.name === '' ? '' : 'hidden']">
-    <div class="element">
+  <div class="form">
+    <div class="element" :class="[user.name === '' ? '' : 'hidden']">
       <label>Username </label>
       <input
         class="name-input"
@@ -72,13 +72,21 @@ const user = computed(() => store.getters.getUser);
 
 const onUsernameSubmit = async () => {
   if (
-    username.value.length > 0 &&
+    (username.value.length > 0 || user.value.name !== '') &&
     numberOfQuestions.value > 0 &&
     selectedDifficulty.value !== "" &&
     selectedCategory.value !== ""
   ) {
     isLoading.value = true;
-    const res = await create(username.value);
+    if (username.value.length > 0) {
+      const res = await create(username.value);
+      store.commit("setUser", {
+        ...res,
+        score: 0,
+      });
+    }  else {
+      store.commit("setScore", 0);
+    }
     const param = {
       amount: numberOfQuestions.value,
       category: selectedCategory.value.id,
@@ -87,10 +95,6 @@ const onUsernameSubmit = async () => {
     store.commit("setSettings", param);
     store.dispatch("fetch");
 
-    store.commit("setUser", {
-      ...res,
-      score: 0,
-    });
     router.push("/questions");
 
     isLoading.value = false;

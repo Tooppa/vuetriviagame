@@ -60,7 +60,7 @@ let allAnswers = computed(() => {
 const handleClick = (clicked) => {
   store.commit("setAnswer", clicked.answer);
   if (clicked.answer == props.data.correct_answer) {
-    store.commit("setScore", 1);
+    store.commit("increaseScore", 1);
   }
   if (!store.getters.checkIfLastQuestion) {
     store.dispatch("nextQuestion");

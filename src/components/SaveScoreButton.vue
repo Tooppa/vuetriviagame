@@ -9,7 +9,6 @@ import { find } from "../endpoints/users/usersApi";
 
 const store = useStore();
 const user = computed(() => store.getters.getUser);
-console.log('user', user.value);
 
 const emit = defineEmits(['onSave']);
 
