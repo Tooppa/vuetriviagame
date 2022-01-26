@@ -7,7 +7,7 @@
   <p align="center">
     Trivia game made using Vue 3
     <br />
-    <a href="#">View Demo</a>
+    <a href="https://super-trivia-app.herokuapp.com/">View Demo</a>
   </p>
 </div>
 
