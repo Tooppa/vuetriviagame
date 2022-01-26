@@ -1,6 +1,6 @@
 <template>
   <div class="form">
-    <div class="element" :class="[user.name === '' ? '' : 'hidden']">
+    <div class="element" v-if="user.name === ''">
       <label>Username </label>
       <input
         class="name-input"
@@ -8,6 +8,9 @@
         v-model="username"
         placeholder="Enter username...."
       />
+    </div>
+    <div v-else>
+      <h1>Username: {{user.username}}</h1>
     </div>
     <!-- Difficulty -->
     <div class="element">
