@@ -27,12 +27,15 @@ import StartForm from "@/components/StartForm.vue";
 }
 
 img {
-  width: 512px;
+  max-width: 512px;;
 }
 
 @media screen and (max-width: 910px){
   .home{
     max-width: 600px;
+  }
+  img{
+    width: 95%;
   }
 }
 </style>
