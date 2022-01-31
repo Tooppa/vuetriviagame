@@ -62,7 +62,7 @@ Purpose of this assignement was to learn different aspects of Vue 3. This projec
 5. Paste the following text to the create file:
    ```
     VUE_APP_USERS_API_KEY={your-api-key}
-    VUE_APP_USERS_BASE_URL=https://noroff-accelerate-api.herokuapp.com/trivia
+    VUE_APP_USERS_BASE_URL={base-url-to-your-hosted-api}/trivia
     VUE_APP_TRIVIA_BASE_URL=https://opentdb.com/api.php
     VUE_APP_TRIVIA_CATEGORY_BASE_URL=https://opentdb.com/api_category.php
    ```
